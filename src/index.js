@@ -13,11 +13,8 @@ function getDogBreeds() {
 
 function addBreedToDOM(breeds) {
 	let breedList = document.querySelector("#dog-breeds")
-
 	for (let dog in breeds) {
-
-		if (breeds[dog].length === 0) {
-
+		if (breeds[dog].length === 0) {	
 			let listItem = document.createElement("li")
 			listItem.innerText = dog
 			listItem.dataset.firstChar = dog[0]
@@ -37,7 +34,7 @@ function addBreedToDOM(breeds) {
 			parentListItem.addEventListener('click', function() {
 				event.target.style.color = "green"
 			})
-
+			//create subbreeds for dogs
 			for (let subdog of breeds[dog]) {
 				let childListItem = document.createElement("li")
 				childListItem.innerText = subdog 
@@ -56,20 +53,19 @@ function filterBreeds(breedlist) {
 
 	filter.addEventListener("change", function() {
 	if (event.target.value === 'default') {
-		breedlist.innerHTML = ''
-
-		for (var breed of breeds) {
-			breedlist.appendChild(breed);
-		}}
+		//ensures all breeds show
+		breeds.forEach(breed => breed.style.display = '')}
 	else {
-		let filteredBreeds = Array.from(breeds).filter(breed => breed.dataset.firstChar === event.target.value)
-		breedlist.innerHTML = ''
+		let breedsToShow = Array.from(breeds)
+		.filter(breed => breed.dataset.firstChar === event.target.value)
 
-		for (var breed of filteredBreeds) {
-		breedlist.appendChild(breed);
-	}
-	}
-	
+		let breedsToHide = Array.from(breeds)
+		.filter(breed => breed.dataset.firstChar !== event.target.value)
+		//ensures that the breeds to show are displayed
+		breedsToShow.forEach(breed => breed.style.display = '')
+		//ensures that the breeds to show are not displayed
+		breedsToHide.forEach(breed => breed.style.display = 'None')
+	}	
 })
 }
 
