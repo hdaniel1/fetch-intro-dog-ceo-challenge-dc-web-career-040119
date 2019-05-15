@@ -38,6 +38,7 @@ function addBreedToDOM(breeds) {
 			for (let subdog of breeds[dog]) {
 				let childListItem = document.createElement("li")
 				childListItem.innerText = subdog 
+				childListItem.dataset.firstChar = dog[0]
 				unorderedList.appendChild(childListItem)
 
 			}}
