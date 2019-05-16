@@ -43,7 +43,7 @@ function addBreedToDOM(breeds) {
 
 			}}
 	}
-
+	addFilteringOptions()
 	filterBreeds(breedList)
 }
 
@@ -70,7 +70,6 @@ function filterBreeds(breedlist) {
 })
 }
 
-
 function getDogImages() {
 	fetch("https://dog.ceo/api/breeds/image/random/4")
 	.then(response => response.json())
@@ -83,4 +82,29 @@ function addImageToDOM(image) {
 	imageNode.src = image
 	imageContainer.appendChild(imageNode)
 
+}
+
+function addFilteringOptions() {
+	let breeds = document.querySelectorAll("li")
+	let firstChars = Array.from(breeds).map(breed => breed.dataset.firstChar)
+	let uniqueChars = getUniqueFirstChars(firstChars)
+	let filter = document.querySelector("#breed-dropdown")
+
+	uniqueChars.forEach(function(element) {
+		let option = document.createElement("option")
+		option.innerText = element
+		option.value = element
+		filter.appendChild(option)
+	})
+}
+
+function getUniqueFirstChars(array) {
+	let newArray = []
+	for (let i of array) { 
+
+		if (!newArray.includes(i)) {
+			newArray.push(i)
+		}
+	}
+	return newArray
 }
